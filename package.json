@@ -1,0 +1,28 @@
+{
+  "name": "cryptophoto-node-demo",
+  "version": "0.0.1",
+
+  "homepage": "http://cryptophoto.com/",
+  "author": "Octavian Theodor Nita <mnothro@yahoo.com>",
+  "description": "Securing an Express application using the CryptoPhoto API.",
+  "keywords": ["cryptophoto", "block", "phishing", "neutralize", "stolen", "passwords"],
+  "license": "MIT",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/octavian-nita/cryptophoto-node-demo.git"
+  },
+  "bugs": "https://github.com/octavian-nita/cryptophoto-node-demo/issues",
+
+  "private": true,
+
+  "scripts": {
+    "start": "node app.js"
+  },
+
+  "dependencies": {
+    "express": "~4.8.7",
+    "serve-favicon": "~2.1.1",
+    "jade": "~1.6.0"
+  }
+}

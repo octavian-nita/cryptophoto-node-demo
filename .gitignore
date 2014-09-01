@@ -1,0 +1,10 @@
+*.iml
+/.idea
+
+/.project
+/.buildpath
+/.settings
+
+/nbproject
+
+/node_modules
