@@ -1,5 +1,4 @@
 doctype html
-
 html
   head
     meta(charset='utf-8')
@@ -18,4 +17,16 @@ html
     link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css')
     link(rel='stylesheet', href='css/main.css')
 
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js')
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js')
+
   body
+    main(role='main')
+      h1 Log in with CryptoPhoto
+      p Hello #{userId}, and welcome!
+
+    footer(role='contentinfo')
+      p
+        | Copyright (C) 2014
+        a(href='http://cryptophoto.com/') Cryptophoto.com
+        | . All Rights Reserved.

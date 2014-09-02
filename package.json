@@ -24,6 +24,6 @@
     "express": "~4.8.7",
     "serve-favicon": "~2.1.1",
     "jade": "~1.6.0",
-    "cryptophoto-node": "~0.0.5"
+    "cryptophoto-node": "~0.0.6"
   }
 }
