@@ -23,6 +23,17 @@ html
   body
     main(role='main')
       h1 Log in with CryptoPhoto
+      if errorMessage
+        p.error= errorMessage
+
+      form(method='post', action='login')
+        label(for='userId') Username:
+        input(id='userId', name='userId', placeholder='Enter the user id', value='#{userId ? userId : ""}', autofocus)
+        label(for='passWd') Password:
+        input(id='passWd', name='passWd', type='password')
+        if cryptoPhotoWidget
+          | #{cryptoPhotoWidget}
+        input(type='submit', value='Go')
 
     footer(role='contentinfo')
       p
