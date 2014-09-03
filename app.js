@@ -5,6 +5,7 @@ var
   express = require('express'),
   session = require('express-session'),
   cryptophoto = require('cryptophoto-node'),
+
   DB = {
     Root: 'Root',
     Admin: 'Admin',
@@ -28,14 +29,22 @@ cryptophoto.visibleIp(function(error, visibleIp) {
   app.set('view engine', 'jade');
   app.set('views', path.join(__dirname, 'views'));
 
-  app.use(session({secret: 'my precious'}));
+  app.use(session({ maxAge: 60000, saveUninitialized: true, secret: 'my precious', resave: true}));
   app.use(express.static(path.join(__dirname, 'public'), { maxage: '6h' }));
 
-  // Routes / handlers:
+  // Routes and handlers:
 
-  app.use('/', function(req, res) {
-    res.render('internal', { userId: visibleIp });
-    // res.render('login');
+  app.get('/', function(request, response) {
+    var session = request.session;
+
+    if (request.query.logout != null) {
+      console.log('Logging out...');
+      return session.destroy(function() {
+        response.render('login', { errorMessage: '' });
+      });
+    }
+
+    return session.userId ? response.render('internal') : response.render('login', { errorMessage: '' });
   });
 
   app.use(function(req, res, next) { // catch 404 and forward to error handler
