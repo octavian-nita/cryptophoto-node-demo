@@ -32,7 +32,7 @@ html
         label(for='passWd') Password:
         input(id='passWd', name='passWd', type='password')
         if cryptoPhotoWidget
-          #{cryptoPhotoWidget}
+          != cryptoPhotoWidget
         input(type='submit', value='Go')
 
     footer(role='contentinfo')

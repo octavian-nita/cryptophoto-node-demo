@@ -41,21 +41,24 @@ cryptophoto.visibleIp(function(error, visibleIp) {
   app.get('/', function(request, response) {
     var session = request.session;
 
-    if (request.query.logout != null) {   // allow log out using queries like '?logout'
+    if (request.query.logout != null) { // allow log out using queries like '?logout'
       console.log('Logging out...');
       return session.destroy(function() {
         response.render('login', { errorMessage: '' });
       });
     }
 
-    session.userId ? response.render('internal') : response.render('login', { errorMessage: '' });
+    session.userId ?
+      response.render('internal', { userId: session.userId }) :
+      response.render('login', { errorMessage: '' });
   });
 
   app.post('/', function(request, response, next) {
     var session = request.session, userId, passWd;
 
     if (!session.authPending) {
-      if (session.userId) { return response.render('internal'); }
+
+      if (session.userId) { return response.render('internal', { userId: session.userId }); }
 
       // Check user id and password:
       userId = request.body.userId ? request.body.userId.trim() : '';
@@ -66,10 +69,11 @@ cryptophoto.visibleIp(function(error, visibleIp) {
 
       // Establish a valid CryptoPhoto session:
       cpClient.getSession(userId, visibleIp, function(error, cpSession) {
+
         if (error) { return next(error); }
 
         if ('true' !== String(cpSession.valid)) {
-          return next(err('CryptoPhoto session is not valid (' + cpSession.error + ')'));
+          return next(err('CryptoPhoto session is not valid (' + cpSession.error + ')!'));
         }
 
         session.userId = userId;
@@ -87,19 +91,21 @@ cryptophoto.visibleIp(function(error, visibleIp) {
       });
 
     } else { // the user has just responded to the challenge:
-      cpClient.verify(request.body.selector, request.body.row, request.body.col, request.body.cph, session.userId,
-                      visibleIp, function(error, cpVerification) {
-          if (error) { return session.destroy(function() { next(error); }); }
+      cpClient.verify(request.body.token_selector, request.body.token_response_field_row,
+                      request.body.token_response_field_col, request.body.cp_phc, session.userId, visibleIp,
+                      function(error, cpVerification) {
 
-          if ('true' !== String(cpVerification.valid)) {
-            return session.destroy(function() {
-              next(err('CryptoPhoto verification failed (' + cpVerification.error + ')'));
-            });
-          }
+                        if (error) { return session.destroy(function() { next(error); }); }
 
-          session.authPending = false;
-          response.render('internal');
-        });
+                        if ('true' !== String(cpVerification.valid)) {
+                          return session.destroy(function() {
+                            next(err('CryptoPhoto verification failed (' + cpVerification.error + ')!'));
+                          });
+                        }
+
+                        session.authPending = false;
+                        response.render('internal', { userId: session.userId });
+                      });
     }
   });
 
