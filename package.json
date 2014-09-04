@@ -21,10 +21,11 @@
   },
 
   "dependencies": {
-    "express": "~4.8.7",
-    "express-session": "~1.7.6",
-    "serve-favicon": "~2.1.1",
     "jade": "~1.6.0",
+    "express": "~4.8.7",
+    "body-parser": "~1.7.0",
+    "serve-favicon": "~2.1.1",
+    "express-session": "~1.7.6",
     "cryptophoto-node": "~0.0.6"
   }
 }

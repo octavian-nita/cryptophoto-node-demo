@@ -36,25 +36,25 @@ a:hover { color: #888; }
 
 [role=main] p { text-align: center; }
 
-form[action=login] {
+form {
   margin: 50px auto 0;
   overflow: hidden;
   width: 300px;
 }
 
-form[action=login] * {
+form * {
   display: inline-block;
   margin: 5px;
 }
 
-form[action=login] label {
+form label {
   width: 75px;
   text-align: right;
 }
 
 #userId, #passWd { width: 202px; }
 
-form[action=login] input[type=submit] { float: right; }
+form input[type=submit] { float: right; }
 
 [role=contentinfo] {
   margin-top: 50px;
